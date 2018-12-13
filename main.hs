@@ -155,14 +155,20 @@ myState = [("x",0), ("y",3), ("z",0)]
 
 -- Examples
 
-example :: CExp
+example1 :: CExp
+example1 = While (Not(Eq (Var "x") (Var "y"))) (Seq (Attrib (Var "x") (Sum (Var "x") (Num 1))) (Attrib (Var "z") (Mul (Var "x") (Num 2))))
 
---example = Mul (Num 3) (Mul (Var "x") (Var "y"))
---example = If FALSE (Attrib (Var "x") (Num 5)) (Attrib (Var "y") (Num 0))
---example = While (Eq (Var "x") (Var "y")) (Attrib (Var "y") (Num 0))
---example = DoubleAttribution (Var "x") (Var "y") (Num 7) (Num 8)
---example = RepeatUntil (Eq (Var "x") (Var "y")) (Attrib (Var "x") (Num 3))
-example = For (Var "x") (Num 1) (Num 3) (Attrib (Var "z") (Sum (Var "z") (Num 1)))
+example2 :: CExp --true
+example2 = If (Eq (Var "x") (Num 0)) (DoubleAttribution (Var "y") (Var "z") (Sub (Num 5) (Num 3)) (Num 15)) (Attrib (Var "z") (Num 35))
+
+example3 :: CExp --false
+example3 = If (Eq (Var "x") (Num 1)) (DoubleAttribution (Var "y") (Var "z") (Sub (Num 5) (Num 3)) (Num 15)) (Attrib (Var "z") (Num 35))
+
+example4 :: CExp
+example4 = RepeatUntil (Eq (Var"x") (Num 4)) (Attrib (Var "x") (Sum (Var "x") (Num 1)))
+
+example5 :: CExp
+example5 = For (Var "x") (Num 1) (Num 3) (Attrib (Var "z") (Sum (Var "z") (Num 1)))
 
 -- RODANDO O example:
 -- Hugs> interpretA (example, myState)
